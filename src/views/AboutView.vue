@@ -1,5 +1,19 @@
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
-  </div>
+  <NavigationNav />
+  <AboutUs></AboutUs>
 </template>
+
+<script>
+import AboutUs from '@/components/AboutUs.vue'
+import NavigationNav from '@/components/NavigationNav.vue'
+export default {
+components:{
+  NavigationNav,
+  AboutUs
+}
+}
+</script>
+
+<style>
+
+</style>
