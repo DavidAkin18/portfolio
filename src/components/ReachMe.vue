@@ -1,33 +1,17 @@
 <template>
   <div class="contact-container">
-        <h1>Contact Me</h1>
-        <p>If you have any questions or want to work together, feel free to reach out!</p>
-        
-        <form @submit.prevent="submitForm">
-            <div class="form-group">
-                <label for="name">Name:</label>
-                <input type="text" id="name" v-model="form.name" required>
-            </div>
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" id="email" v-model="form.email" required>
-            </div>
-            <div class="form-group">
-                <label for="message">Message:</label>
-                <textarea id="message" v-model="form.message" required></textarea>
-            </div>
-            <button type="submit">Send Message</button>
-        </form>
-        
-        <div class="contact-info">
-            <h2>Connect with Me</h2>
-            <ul>
-                <li>Email: <a href="mailto:your.akindayodavid22@gmail.com">akindayodavid22@gmail.com</a></li>
-                <li>Phone: +(234) 703 576 458</li>
-                <li>LinkedIn: <a href="https://www.linkedin.com/in/david-akintola-4800001b4/" target="_blank">linkedin.com/in/david-akintola</a></li>
-                <li>GitHub: <a href="https://https://github.com/DavidAkin18" target="_blank">github.com/DavidAkin18</a></li>
-            </ul>
-        </div>
+    <h1>Contact Me</h1>
+    <p>If you have any questions or want to work together, feel free to reach out!</p>
+
+    <div class="contact-info">
+      <h2>Connect with Me</h2>
+      <ul>
+        <li>Email: <a href="mailto:akindayodavid22@gmail.com">akindayodavid22@gmail.com</a></li>
+        <li>Phone: <a href="tel:+234703576458">+(234) 703 576 458</a></li>
+        <li>LinkedIn: <a href="https://www.linkedin.com/in/david-akintola-4800001b4/" target="_blank">linkedin.com/in/david-akintola</a></li>
+        <li>GitHub: <a href="https://github.com/DavidAkin18" target="_blank">github.com/DavidAkin18</a></li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -35,89 +19,46 @@
 export default {
     data() {
     return {
-      form: {
-        name: '',
-        email: '',
-        message: ''
-      }
+      
     };
   },
   methods: {
-    submitForm() {
-      // Handle form submission, e.g., send form data to an API
-      alert('Message sent!');
-      // Clear the form
-      this.form.name = '';
-      this.form.email = '';
-      this.form.message = '';
-    }
+    
   }
 }
 </script>
 
 <style scoped>
-*{
-    margin: 0;
-    padding: 0;
-    
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
 }
 
 .contact-container {
   max-width: 800px;
   margin: 50px auto;
   padding: 20px;
-  background: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background: #f9f9f9;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
+  text-align: center;
 }
 
 h1 {
-  text-align: center;
-  margin-bottom: 20px;
   color: #333;
+  font-size: 2rem;
+  margin-bottom: 20px;
 }
 
 p {
-  text-align: center;
   color: #666;
+  font-size: 1rem;
   margin-bottom: 40px;
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-}
-
-.form-group {
-  margin-bottom: 20px;
-}
-
-label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
-  color: #333;
-}
-
-input, textarea {
-  width: 95%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-button {
-  padding: 10px 20px;
-  border: none;
-  background: #0a74da;
-  color: #fff;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-button:hover {
-  background: #064d99;
 }
 
 .contact-info {
@@ -125,8 +66,9 @@ button:hover {
 }
 
 .contact-info h2 {
-  margin-bottom: 20px;
   color: #333;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
 }
 
 .contact-info ul {
@@ -135,7 +77,9 @@ button:hover {
 }
 
 .contact-info ul li {
+  font-size: 1.1rem;
   margin-bottom: 10px;
+  color: #333;
 }
 
 .contact-info ul li a {
@@ -145,5 +89,23 @@ button:hover {
 
 .contact-info ul li a:hover {
   text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .contact-container {
+    padding: 15px;
+  }
+
+  h1 {
+    font-size: 1.75rem;
+  }
+
+  .contact-info h2 {
+    font-size: 1.3rem;
+  }
+
+  .contact-info ul li {
+    font-size: 1rem;
+  }
 }
 </style>

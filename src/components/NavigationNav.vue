@@ -1,183 +1,213 @@
 <template>
   <div class="navigation">
     <nav class="nav">
-      <div class="logo"> <router-link>A.D-Dev</router-link></div>
-      <div class="nav-list" >
-        <ul class="lists" id="items"  :class="dynamicClass">
-            <li class="list-item"  v-for="(list , index) in lists"  :key="index" >
-              <router-link :to="list.href" :class="{ act: isActive(list.href) }" >
-                {{ list.name }} 
-              </router-link>
-            </li>
+      <div class="logo">
+        <router-link to="/">A.D-Dev</router-link>
+      </div>
+      <div class="nav-list" :class="dynamicClass" ref="menu">
+        <ul class="lists" id="items">
+          <li class="list-item" v-for="(list, index) in lists" :key="index">
+            <router-link :to="list.href" :class="{ active: isActive(list.href) }">
+              {{ list.name }}
+            </router-link>
+          </li>
         </ul>
       </div>
-      <div class="nav-bar" @click="toggleBar">|||</div>
+      <div class="nav-bar" @click="toggleBar" ref="navBar">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </div>
     </nav>
-    <hr>
+    <hr />
   </div>
 </template>
 
 <script>
 export default {
-data(){
-  return{
-    lists:[
-      {name:'Home', href:'/'},
-      {name:'Portfolio', href:'/portfolio'},
-      {name:'About', href:'/about'},
-      {name:'Skills', href:'/skills'},
-      {name:'CV', href:'/curriculumVitae'},
-      {name:'Contacts', href:'/contact'}
-    ],
-    isToggle:false,
-    activeIndex:0
-  }
-},
-computed:{
-  dynamicClass(){
+  data() {
     return {
-      active:this.isToggle,
-      inactive:!this.isToggle
-    }
-  }
-},
-methods:{
-  toggleBar(){
-    this.isToggle = !this.isToggle
+      lists: [
+        { name: 'Home', href: '/' },
+        { name: 'Portfolio', href: '/portfolio' },
+        { name: 'About', href: '/about' },
+        { name: 'Skills', href: '/skills' },
+        { name: 'CV', href: '/curriculumVitae' },
+        { name: 'Contacts', href: '/contact' }
+      ],
+      isToggle: false
+    };
   },
-  isActive(path){
-    return this.$route.path === path;
+  computed: {
+    dynamicClass() {
+      return {
+        'nav-list-active': this.isToggle,
+        'nav-list-inactive': !this.isToggle
+      };
+    }
+  },
+  methods: {
+    toggleBar() {
+      this.isToggle = !this.isToggle;
+    },
+    isActive(path) {
+      return this.$route.path === path;
+    },
+    handleClickOutside(event) {
+      const menu = this.$refs.menu;
+      if (menu && !menu.contains(event.target) && !this.$refs.navBar.contains(event.target)) {
+        this.isToggle = false;
+      }
+    }
+  },
+  mounted() {
+    document.addEventListener('click', this.handleClickOutside);
+  },
+  beforeDestroy() {
+    document.removeEventListener('click', this.handleClickOutside);
   }
-}
+
 }
 </script>
 
 <style scoped>
-.navigation{
+.navigation {
   position: fixed;
   top: 0;
-  width: 100%; 
+  width: 100%;
   font-family: Arial, sans-serif;
   z-index: 999;
   background: #0056b3;
+  color: #fff;
 }
 
-hr{
-    display: block;
-    border-color: #ffffff;
-  }
-.nav{
+hr {
+  border: none;
+  border-top: 1px solid #007bff;
+  margin: 0;
+}
+
+.nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 0;
-  padding:  0.5rem;
-}
-.logo{
-  background: #007BFF;
-  color: #FFFFFF;
-  padding: 5px;
-  border-radius: 10px;
+  padding: 0.5rem 1rem;
 }
 
-.logo a{
-  text-decoration: none;
-  font-size: 20px;
-  font-weight: 800;
-  color: #FFFFFF;
-}
-.nav-bar{
-  transform: rotate(90deg);
-  font-size: 25px;
-  color: #ffffff;
-  cursor: pointer;
-}
-.lists {
-  position: absolute;
-  top: 50px;
-  z-index: 999;
-  right: 0;
-  border:1px solid  #007BFF;
-  background: #ffffff;
-  width: 50%;
-  min-height: 100vh;
-  list-style-type: none;
-  padding: 10px 20px;
+.logo {
+  background: #007bff;
+  color: #fff;
+  padding: 5px 15px;
+  border-radius: 8px;
 }
 
-.list-item a{
-  font-size: 20px;
-  font-weight: 500;
-  color: #1e3a8a;
+.logo a {
   text-decoration: none;
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #fff;
 }
-.list-item a:hover{
-  color: #1e3a8a;
-}
-.list-item .act a{
-  color: #1e3a8a;
-}
-.list-item{
-  position: relative;
-  z-index: 1;
-  list-style: none;
+
+.nav-bar {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding:  10px 0;
+  width: 30px;
+  height: 21px;
+  cursor: pointer;
+  z-index: 1000;
 }
-.list-item .act {
-  color: #1e3a8a;
+
+.bar {
+  display: block;
+  width: 100%;
+  height: 3px;
+  background: #fff;
+  transition: background 0.3s, transform 0.3s;
 }
-.nav-list a {
-  color: #1e3a8a;
-}
-.inactive{
+
+.nav-list-inactive {
   display: none;
 }
-.active{
-  display: inline;
+
+.nav-list-active {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: #fff;
+  color: #0056b3;
+  padding: 1rem;
+  border: 1px solid #007bff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  width: 250px;
+  z-index: 1000;
 }
-@media (min-width: 767px){
-  .navigation{
-    width: 100%;
+
+.lists {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.list-item a {
+  display: block;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #0056b3;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: background 0.3s, color 0.3s;
+}
+
+.list-item a:hover,
+.list-item a.active {
+  background: #003d7a;
+  color: #fff;
+}
+
+@media (min-width: 768px) {
+  .nav-bar {
+    display: none;
   }
-  .nav-list{
-    width: 70%;
-    height: 30px;
-  }
-  .lists{
+  .nav-list-active {
+    display: flex;
+    flex-direction: row;
     position: static;
     background: none;
     padding: 0;
+    color: #fff;
     border: none;
-    height: 10px;
+    box-shadow: none;
+    width: auto;
   }
-  .inactive{
+  .nav-list-inactive {
+    display: block;
+  }
+  .lists {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    min-height: 30px;
-    width: 100%;
+    gap: 1rem;
   }
- .list-item a{
-  color: #FFFFFF;
-  background: none;
-  font-weight: bold;
- }
-  .nav-bar{
-    display: none;
+  .list-item a {
+    padding: 0.5rem 1rem;
+    background: none;
+    color: #fff;
   }
+  .list-item a:hover,
+  .list-item a.active {
+    background: none;
+    color: #007bff;
+  }
+  /* 
+
   
-  @media (min-width: 1024px){
-    .nav-list{
-      width: 65%;
-    }
-  }
-  @media (min-width: 1440px){
-    .nav-list{
-      width: 40%;
-    }
-  }
+
+ 
+
+ 
+
+   */
 }
 </style>

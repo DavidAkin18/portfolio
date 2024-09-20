@@ -2,19 +2,28 @@
   <div class="skills-content">
     <h1 class="header">Core Skills...</h1>
     <div class="skill-items-container">
-        <div class="skill-items" v-if="skills.length">
-            <div v-for="(item , index) in skills" :key="index" class="items"> 
-                <img :src="item.img" :alt="item.title">
-                <div class="item-text">
-                    <h3>{{ item.title }}</h3>
-                    <ul >
-                        <li v-for="skill in item.skillType" :key='skill'>
-                           - {{skill }}
-                        </li>
-                    </ul>
-                </div>
-            </div>
+      <div class="skill-items" v-if="skills.length">
+        <div v-for="(item, index) in skills" :key="index" class="item">
+          <img :src="item.img" :alt="item.title" class="item-image" />
+          <div class="item-text">
+            <h3>{{ item.title }}</h3>
+            <ul>
+              <li v-for="skill in item.skillType" :key="skill">- {{ skill }}</li>
+            </ul>
+          </div>
         </div>
+      </div>
+    </div>
+
+    <div class="home-footer">
+      <h2>David Akintola</h2>
+      <div class="social-icons">
+        <div v-for="(image, index) in images" :key="index" class="icon-container">
+            <a :href="image.link" target="blank">
+                <img :src="image.src" :alt="image.alt" />
+            </a>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -32,6 +41,12 @@ import img9 from '@/assets/skills/api.webp'
 import img10 from '@/assets/skills/figma.webp'
 import img11 from '@/assets/skills/Performance.png'
 import img12 from '@/assets/skills/Accessibility.jpg'
+
+import image1 from '../assets/facebook.jpeg'
+import instagram from '../assets/instagram.avif'
+import linkedin from '../assets/linkedin.avif'
+import x from '../assets/x.jpg'
+import whatsapp from '../assets/whatsapp.jpeg'
 export default {
 data(){
     return{
@@ -49,7 +64,7 @@ data(){
             {
                 img:img3,
                 title:'Frameworks and Libraries',
-                skillType:['Vue.js']
+                skillType:['Vue.js, React.js']
             },
             {
                 img:img4,
@@ -96,6 +111,13 @@ data(){
                 title:'Accessibility (a11y)',
                 skillType:['ARIA roles and attributes', 'Keyboard Navigation']
             }
+        ],
+        images:[
+            {src:image1, alt: 'facebook', link:'https://web.facebook.com/akintola.david.524'},
+            {src:instagram, alt: 'instagram', link:'https://www.instagram.com/it_dayoakin/' },
+            {src:linkedin, alt: 'linkedin', link:'https://www.linkedin.com/in/david-akintola-4800001b4/' },
+            {src: x, alt: 'X', link:'https://x.com/Davidakindosu' },
+            {src:whatsapp, alt:'whatsapp', link:'https://wa.me/qr/R7XJHRWA4GRYC1'}
         ]
     }
 }
@@ -103,105 +125,151 @@ data(){
 </script>
 
 <style>
-.skills-content{
-    padding-top: 60px;
-    width: 95%;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    font-family:Verdana, Geneva, Tahoma, sans-serif ;
-}
-.skill-items-container{
-    box-shadow: 0px 2px 5px #6b7280;
-    background: #f3f4f6;
-    margin: 10px 0;
-}
-.skill-items{
-    padding: 5px;
-}
-.items{
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-    gap: 20px;
-    margin-bottom: 20px;
-    padding: 5px;
-    box-shadow: 0px 2px 5px #0056b3;
-}
-.item-text h3{
-    color: #0056b3;
-    margin-bottom: 5px;
-}
-.item-text ul{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 5px;
-}
-.item-text ul li{
-    list-style-type:none;
-    color: #0056b3;
-    line-height: 20px;
-}
-.header{
-    color: #0056b3;
+.skills-content {
+  padding: 60px 5%;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
-img{
-    width: 100px;
-    height: 100px;
+.header {
+  color: #0056b3;
+  margin-bottom: 20px;
+  font-size: 2rem;
 }
-@media (min-width:540px){
-    .items{
-        gap: 30px;
-    }
-    .skill-items{
-        padding: 10px;
-    }
-    .item-text h3{
-        margin-bottom: 10px;
-    }
-    img{
-        width: 150px;
-        height: 150px;
-    }
-    .item-text ul li{
-        font-size: 20px;
-    }
-    @media (min-width:1024px){
-        img{
-            width: 150px;
-            height: 150px;
-        }
-        .items{
-            max-width: 500px;
-        }
-        .skill-items{
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            box-shadow: 0px 2px 5px #6b7280;
-            background: #f3f4f6;
-            width: 100%;
-            gap: 10px;
-        }
-        .item-text ul li{
-            font-size: 18px;
-        }
-    }
-    @media (min-width:1280px){
-       
-        .skill-items-container{
-            box-shadow: none;
-        }
-        .skill-items{
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            box-shadow: 0px 2px 5px #6b7280;
-            background: #f3f4f6;
-            width: 100%;
-            gap: 10px;
-        }
-    }
+
+.skill-items-container {
+  background: #f3f4f6;
+  box-shadow: 0 2px 5px rgba(107, 114, 128, 0.2);
+}
+
+.skill-items {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.item {
+  position: relative; 
+  background-color: #ffffff; 
+  padding: 10px;
+  border-radius: 8px; 
+  box-shadow: 0 2px 5px rgba(107, 114, 128, 0.2);
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.item:last-child {
+  border-bottom: none;
+}
+
+.item-image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.item-text {
+  flex: 1;
+}
+
+.item-text h3 {
+  color: #0056b3;
+  margin-bottom: 5px;
+  font-size: 1.2rem;
+}
+
+.item-text ul {
+  padding-left: 0;
+  list-style: none;
+}
+
+.item-text ul li {
+  color: #0056b3;
+  line-height: 1.5;
+}
+
+.home-footer {
+  margin-top: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.home-footer h2 {
+  color: #333;
+  font-size: 1.4rem;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+/* Social Media Icons */
+.social-icons {
+  display: flex;
+  gap: 10px;
+}
+
+.icon-container img {
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 1px solid #007bff;
+  padding: 2px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.icon-container img:hover {
+  background: #007bff;
+}
+@media (min-width: 540px) {
+  .item {
+    gap: 30px;
+  }
+
+  .item-image {
+    width: 150px;
+    height: 150px;
+  }
+
+  .item-text h3 {
+    margin-bottom: 10px;
+  }
+
+  .item-text ul li {
+    font-size: 20px;
+  }
+}
+
+@media (min-width: 1024px) {
+   
+  .skill-items {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+   
+  }
+
+  .item-image {
+    width: 150px;
+    height: 150px;
+  }
+
+  .item-text ul li {
+    font-size: 18px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .skill-items {
+    grid-template-columns: repeat(3, 1fr);
+   
+  }
+
+  .skill-items-container {
+    box-shadow: none;
+  }
 }
 </style>
